@@ -280,6 +280,14 @@ public class RobustInputOutput implements InputOutput, StateListener {
 		}));
 	}
 
+	public void addTrigger(String trigger, final Runnable run) {
+		mudClientFilter.addTextListener(new Trigger(trigger, new TriggerAction() {
+			public void onTrigger() {
+				run.run();
+			}
+		}));
+	}
+
 
 	public void onState(String key, Object value) {
 		if (key.equals(State.KEY_SYNC)) {
