@@ -162,6 +162,29 @@ public class Launcher {
 		if (configuration.getInt("sync", 0) != 0) {
 			state.addStateListener(io);
 		}
+
+		io.addTrigger(".*You step through the opening into a blurred patchwork.*", new String[] { "syn violin as \"vv\"\r" });
+		io.addTrigger(".*seconds to finish up. No further warnings will be issued.*", new Runnable() {
+			@Override
+			public void run() {
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						for(int i = 119; i >= 0; i--) {
+							try {
+								statsSensor.fireOnState(State.KEY_RESET_TIME, i);
+							} catch (Exception e) {
+							}
+
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+							}
+						}
+					}
+				}).start();
+			}
+		});
 		
 //		io.addTrigger(".*^EXAMINE>.*", "q\r");
 //		io.addTrigger(".*^Players:.*", "fes\r");
