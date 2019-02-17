@@ -28,7 +28,7 @@ public class FontManager {
 		Iterator iterator = getFontNames().iterator();
 		while(iterator.hasNext()) {
 			String name = (String) iterator.next();
-			if (name.equalsIgnoreCase("Courier")) {
+			if (name != null && name.equalsIgnoreCase("Courier")) {
 				fontName = name;
 				break;
 			}
